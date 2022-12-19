@@ -48,11 +48,11 @@ app.delete("/:id", async (req, res) => {
     return res.status(500).json({message:error.message})
   }
 });
-// const path = require("path")
-// app.get("/",(req,res)=>{
-//   app.use(express.static(path.resolve(__dirname,"client","public")))
-//   res.sendFile(path.resolve(__dirname,"client","src","index.js"));
-// })
+const path = require("path")
+app.get("/",(req,res)=>{
+  app.use(express.static(path.resolve(__dirname,"client","build")))
+  res.sendFile(path.resolve(__dirname,"client","build","index.html"));
+})
 
 app.listen(process.env.PORT || PORT, () => {
   console.log(`server is listening at ${PORT}`);
