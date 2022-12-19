@@ -4,6 +4,7 @@ const db = require("./db");
 const Todo = require("./todo");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const path = require("path")
 
 
 const app = express();
@@ -13,10 +14,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
 
 
+
 app.get("/", async (req, res) => {
   try {
     const todos = await Todo.find();
     res.json(todos);
+    app.use(express.static(path.resolve(__dirname,"client","build")))
+    res.sendFile(path.resolve(__dirname,"client","build","index.html"));
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -48,11 +52,6 @@ app.delete("/:id", async (req, res) => {
     return res.status(500).json({message:error.message})
   }
 });
-const path = require("path")
-app.get("/",(req,res)=>{
-  app.use(express.static(path.resolve(__dirname,"client","build")))
-  res.sendFile(path.resolve(__dirname,"client","build","index.html"));
-})
 
 app.listen(process.env.PORT || PORT, () => {
   console.log(`server is listening at ${PORT}`);
