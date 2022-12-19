@@ -3,8 +3,8 @@ const express = require("express");
 const db = require("./db");
 const Todo = require("./todo");
 const bodyParser = require("body-parser");
-
 const cors = require("cors");
+
 
 const app = express();
 const PORT = 3002;
